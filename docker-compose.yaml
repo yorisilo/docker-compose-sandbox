@@ -7,17 +7,24 @@ services:
         - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=Passw0rd
-      - MYSQL_DATABASE=deno-dev
+      - MYSQL_DATABASE=deno_dev
       - TZ=Asia/Tokyo
     volumes:
       - db-volume:/var/lib/mysql
       - ./docker/db/config/mysql:/etc/mysql/conf.d
-      - ./logs:/var/log/mysql
+      - ./docker/db/logs:/var/log/mysql
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   app:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+    environment:
+      - DB_HOST=db # this should be identical to the database service name
+      - DB_USER=root
+      - DB_DATABASE=deno_dev
+      - DB_PASSWORD=Passw0rd
+      - TOKEN_SECRET=QA3GCPvnNO3e6x29dFfzbvIlP8pRNwif # don't forget to change this
     ports:
       - "3000:3000"
     depends_on:
