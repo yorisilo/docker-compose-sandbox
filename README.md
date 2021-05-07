@@ -58,3 +58,25 @@ docker-compose -f ~/src/github.com/refcome/stores/docker-compose.yml down --rmi 
 
 cf.
 - [Dockerで、ホストからcurlでアクセスするとEmpty reply from serverがでてしまう \| mokelab tech sheets](https://tech.mokelab.com/infra/docker/tips/empty_reply_from_server.html)
+
+# dev
+
+``` shell
+# lock ファイルを使用してパッケージを cache する
+deno cache --reload --lock=deno-lock.json src/deps.ts
+
+# パッケージを増やしたりした場合に使う。 ローカル環境にパッケージを cache(ダウンロード) する。 lock ファイルも更新する。
+deno cache --reload --lock=deno-lock.json --lock-write src/deps.ts
+
+# image を build してサービスを起動させる
+docker-compose --build up -d
+
+# container に入る(db service)
+docker-compose exec db bash
+
+# all clean
+docker-compose down --rmi all --volumes --remove-orphans
+
+# clean (volume 以外)
+docker-compose down --rmi all --remove-orphans
+```

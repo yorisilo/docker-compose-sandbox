@@ -2,7 +2,7 @@
 
 # todo
 - [x] リリースボットのバックエンドの設計作成
-- [ ] mysql とつなぐ(query builder や orm は使わない)
+- [x] mysql とつなぐ(query builder や orm は使わない)
 - [ ] table 設計
 - [ ] api 作成
 - [ ] ビジネスロジック作成
